@@ -6,6 +6,54 @@
 #include <netinet/in.h>
 #include <netinet/tcp.h>
 
+#define ETH_ALEN	6
+
+struct eth_h{
+    unsigned char ether_dhost[ETH_ALEN]; /* size : 6	*/
+    unsigned char ether_shost[ETH_ALEN]; /* size : 6	*/
+    unsigned short ether_type;            /* size : 2	*/
+};
+struct ip_h{
+    unsigned int ihl:4;
+    unsigned int version:4;
+    unsigned char tos;
+    unsigned short tot_len;
+    unsigned short id;
+    unsigned short frag_off;
+    unsigned char ttl;
+    unsigned char protocol;
+    unsigned short check;
+    unsigned char saddr[4];
+    unsigned char daddr[4];
+};
+struct tcp_h{
+
+    unsigned short sport;
+    unsigned short dport;
+    unsigned int seq;
+    unsigned int acknow;
+    unsigned char ns:1;
+    unsigned char res:3;
+    unsigned char Hlen:4;
+    unsigned char fin:1;
+    unsigned char syn:1;
+    unsigned char rst:1;
+    unsigned char psh:1;
+    unsigned char ack:1;
+    unsigned char urg:1;
+    unsigned char ecn:1;
+    unsigned char cwr:1;
+    unsigned short win;
+    unsigned short chsum;
+    unsigned short urp;
+
+};
+
+static struct ip_h *ih;
+static struct tcp_h *th;
+static struct eth_h *eh;
+
+
 int main(int argc, char* argv[]){
     if (argc != 2) {
         usage();
