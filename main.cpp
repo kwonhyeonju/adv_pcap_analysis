@@ -1,11 +1,9 @@
-#include "pcap.h"
 #include <pcap.h>
 #include <stdio.h>
 #include <net/ethernet.h>
 #include <netinet/ip.h>
 #include <netinet/in.h>
 #include <netinet/tcp.h>
-
 #define ETH_ALEN	6
 
 struct eth_h{
@@ -54,6 +52,11 @@ static struct tcp_h *th;
 static struct eth_h *eh;
 
 
+void usage(){
+    printf("syntax: pcap_test <interface>\n");
+    printf("sample: pcap_test wlan0\n");
+}
+
 int main(int argc, char* argv[]){
     if (argc != 2) {
         usage();
@@ -75,7 +78,6 @@ int main(int argc, char* argv[]){
         if (res == 0) continue;
         if (res == -1 || res == -2) break;
 
-        struct eth_h *eh;
         eh = (struct eth_h *)packet;
         //printf("================ETHERNET==================\n");
         printf("smac : %02x:%02x:%02x:%02x:%02x:%02x\n",
