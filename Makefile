@@ -7,4 +7,4 @@ main.o: main.cpp
 	g++ -c -o main.o main.cpp
 
 clean:
-	rm -f *.o adv_pcap_analysis
+	rm -f *.o adv_pcap_analysis 
